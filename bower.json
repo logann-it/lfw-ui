@@ -29,5 +29,5 @@
   "dependencies": {
     "ng-table": "0.3.2",
     "bootbox": "4.3.0"
-  },
+  }
 }
