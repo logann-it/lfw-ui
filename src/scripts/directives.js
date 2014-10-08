@@ -331,8 +331,8 @@ angular.module('lfw')
                 '<div class="form-group" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div>',
-                        '<select class="form-control" ng-model="ngModel">',
-                            '<option ng-repeat="v_opt in enum" value="{{v_opt}}">{{attrDescriptionPrefix + v_opt | translate}}</option>',
+                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enum">',
+                            '<option value=""></option>',
                         '</select>',
                     '</div>',
                 '</div>'
@@ -429,7 +429,7 @@ angular.module('lfw')
             },
             template: [
                 '<button type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger">',
-                    '<span class="glyphicon glyphicon-remove-circle"></span> <span translate="global.actions.delete"></span>',
+                    '<span class="glyphicon glyphicon-remove-circle"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
                 '</button>'
             ].join('')
         };
@@ -449,7 +449,7 @@ angular.module('lfw')
             },
             template: [
                 '<button class="btn" type="button">',
-                    '<span class="glyphicon glyphicon-pencil"></span> <span translate="global.actions.edit"></span>',
+                    '<span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs hidden-sm" translate="global.actions.edit"></span>',
                 '</button>'
             ].join('')
         };
@@ -651,9 +651,9 @@ angular.module('lfw')
 
                     if (v_column.attr('ng-show'))
                     {
-                        v_table += 'ng-show="' + v_column.attr('ng-show')  +'" ' ;
+                        v_table += ' ng-show="' + v_column.attr('ng-show')  +'" ' ;
                     }
-                    v_table += 'width="' + v_column.attr('width') + '"/>';
+                    v_table += ' width="' + v_column.attr('width') + '"/>';
                 }
                 v_table += '</colgroup>';
 
@@ -665,6 +665,14 @@ angular.module('lfw')
 
                     v_table += '<td ';
 
+                    if (v_column.attr('class'))
+                    {
+                        v_table += ' class="' + v_column.attr('class') + '" ';
+                    }
+                    if (v_column.attr('align'))
+                    {
+                        v_table += ' align="' + v_column.attr('align') + '" ';
+                    }
                     if (v_column.attr('ng-show'))
                     {
                         v_table += ' ng-show="' + v_column.attr('ng-show')  +'" ' ;
