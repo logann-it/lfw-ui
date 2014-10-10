@@ -434,7 +434,7 @@ angular.module('lfw')
             ].join('')
         };
     })
-    .directive("lfwCustomButton", function() {
+    .directive("lfwButton", function() {
         return {
             restrict: 'E',
             compile: function(p_element, p_attrs)
