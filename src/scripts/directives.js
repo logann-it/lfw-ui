@@ -434,6 +434,30 @@ angular.module('lfw')
             ].join('')
         };
     })
+    .directive("lfwButton", function() {
+        return {
+            restrict: 'E',
+            compile: function(p_element, p_attrs)
+            {
+                p_element.find('span.lfw-button-icon').addClass(p_attrs['icon']);
+                p_element.find('span.lfw-button-text').text(p_attrs['text']);
+
+                if (p_attrs['className'])
+                {
+                    p_element.find('button').addClass(p_attrs['className']);
+                }
+                else
+                {
+                    p_element.find('button').addClass('btn-sm');
+                }
+            },
+            template: [
+                '<button class="btn" type="button">',
+                    '<span class="lfw-button-icon"></span> <span class="lfw-button-text hidden-xs hidden-sm"></span>',
+                '</button>'
+            ].join('')
+        };
+    })
     .directive("lfwEditButton", function() {
         return {
             restrict: 'E',
