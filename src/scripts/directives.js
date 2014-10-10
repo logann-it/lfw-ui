@@ -444,7 +444,7 @@ angular.module('lfw')
                     p_element.find('button').addClass(p_attrs['className']);
                 }
                 else {
-                    p_element.find('button').addClass(' btn-sm');
+                    p_element.find('button').addClass('btn-sm');
                 }
             },
             scope: {
@@ -474,6 +474,16 @@ angular.module('lfw')
             template: [
                 '<button class="btn" type="button">',
                     '<span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs hidden-sm" translate="global.actions.edit"></span>',
+                '</button>'
+            ].join('')
+        };
+    })
+    .directive("lfwBackButton", function() {
+        return {
+            restrict: 'E',
+            template: [
+                '<button class="btn" type="button">',
+                    '<span class="glyphicon glyphicon-chevron-left"></span> <span class="hidden-xs hidden-sm" translate="global.actions.back"></span>',
                 '</button>'
             ].join('')
         };
