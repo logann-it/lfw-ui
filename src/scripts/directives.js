@@ -35,11 +35,11 @@ angular.module('lfw')
         return {
             restrict: 'A',
             link: function(scope, element, attrs, controller) {
-                var v_link = element.find('a');
-                var v_path = v_link.attr('href');
-                v_path = v_path.substring(1); //hack because path does bot return including hashbang
                 scope.location = $location;
                 scope.$watch('location.path()', function(newPath) {
+                    var v_link = element.find('a');
+                    var v_path = v_link.attr('href');
+                    v_path = v_path.substring(1); //hack because path does bot return including hashbang
                     if (v_path === newPath) {
                         element.addClass("active");
                     } else {
