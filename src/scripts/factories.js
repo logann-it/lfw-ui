@@ -95,10 +95,8 @@ lfw.factory('LfwFilterPageFactory', function(ngTableParams)
                 {
                     var keys = Object.keys(params.$params.sorting);
                     var object = {
-                        page: params.$params.page,
-                        count: params.$params.count,
-                        sorting_field: keys[0],
-                        sorting_direction: params.$params.sorting[keys[0]]
+                        page: params.$params.page - 1,
+                        sort: keys[0] + "," + params.$params.sorting[keys[0]]
                     };
                     var filters = Object.keys(scope.filter);
                     for(var i=0; i < filters.length; i++)
