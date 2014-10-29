@@ -443,13 +443,16 @@ angular.module('lfw')
                 else {
                     p_element.find('button').addClass(' btn-sm');
                 }
+                if (p_attrs['onlyIcon']) {
+                    p_element.find("span[translate]").remove();
+                }                
             },
             scope: {
                 'action': "&confirmAction"
             },
             template: [
                 '<button type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger">',
-                    '<span class="glyphicon glyphicon-remove-circle"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
+                    '<span class="fa fa-trash-o"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
                 '</button>'
             ].join('')
         };
@@ -490,6 +493,9 @@ angular.module('lfw')
                 else {
                     p_element.find('button').addClass(' btn-sm');
                 }
+                if (p_attrs['onlyIcon']) {
+                    p_element.find("span[translate]").remove();
+                }
             },
             template: [
                 '<button class="btn" type="button">',
@@ -501,6 +507,12 @@ angular.module('lfw')
     .directive("lfwBackButton", function() {
         return {
             restrict: 'E',
+            compile: function(p_element, p_attrs)
+            {
+                if (p_attrs['onlyIcon']) {
+                    p_element.find("span[translate]").remove();
+                }
+            },            
             template: [
                 '<button class="btn" type="button">',
                     '<span class="glyphicon glyphicon-chevron-left"></span> <span class="hidden-xs hidden-sm" translate="global.actions.back"></span>',
