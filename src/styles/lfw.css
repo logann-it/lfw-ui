@@ -31,3 +31,13 @@ table.mini-list-grid td {
 .center {
     text-align: center;
 }
+
+
+.required_field {
+    font-weight: bold;
+
+}
+
+.required_field::after { 
+    content: " *";
+}

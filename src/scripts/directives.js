@@ -215,6 +215,11 @@ angular.module('lfw')
                 v_input.attr("name", v_elementId).attr("id", v_elementId);
                 v_label.attr("for", v_elementId);
 
+                if (tAttrs['required'])
+                {
+                    v_label.addClass("required_field");    
+                }
+
                 if (tAttrs['horizontal'])
                 {
                     var v_divInput = v_input.parent();
@@ -282,6 +287,11 @@ angular.module('lfw')
                     v_divInput.addClass('col-sm-10');
                 }
 
+                if (tAttrs['required'])
+                {
+                    v_label.addClass("required_field");    
+                }                
+
                 var v_validationAttributes = ['required', 'ngMinlength', 'ngMaxlength'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
                     if (tAttrs[p_validation])
@@ -317,6 +327,11 @@ angular.module('lfw')
                     var v_divSelect = v_select.parent();
                     v_label.addClass('col-sm-2');
                     v_divSelect.addClass('col-sm-10');
+                }
+
+                if (tAttrs['required'])
+                {
+                    v_label.addClass("required_field");    
                 }
 
                 var v_validationAttributes = ['required'];
@@ -366,6 +381,11 @@ angular.module('lfw')
                     v_label.addClass('col-sm-2');
                     v_divSelect.addClass('col-sm-10');
                 }
+
+                if (tAttrs['required'])
+                {
+                    v_label.addClass("required_field");    
+                }                
 
                 var v_validationAttributes = ['required'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
