@@ -448,10 +448,11 @@ angular.module('lfw')
                 }                
             },
             scope: {
-                'action': "&confirmAction"
+                'action': "&confirmAction",
+                disable: '@'
             },
             template: [
-                '<button type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger">',
+                '<button type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger" ng-disabled="{{disable}}">',
                     '<span class="fa fa-trash-o"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
                 '</button>'
             ].join('')
@@ -484,6 +485,9 @@ angular.module('lfw')
     .directive("lfwEditButton", function() {
         return {
             restrict: 'E',
+            scope: {
+                disable: '@'
+            },
             compile: function(p_element, p_attrs)
             {
                 if (p_attrs['className'])
@@ -498,7 +502,7 @@ angular.module('lfw')
                 }
             },
             template: [
-                '<button class="btn" type="button">',
+                '<button class="btn" type="button" ng-disabled="{{disable}}">',
                     '<span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs hidden-sm" translate="global.actions.edit"></span>',
                 '</button>'
             ].join('')
