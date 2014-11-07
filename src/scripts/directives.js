@@ -191,7 +191,7 @@ angular.module('lfw')
                 '<div class="form-group"  ng-show="ngShow" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div class="lfw-group">',
-                        '<input type="text" class="form-control" ng-model="ngModel">',
+                        '<input type="text" class="form-control" ng-model="ngModel" name="{{name}}">',
                     '</div>',
                 '</div>'
             ].join(''),
@@ -200,12 +200,13 @@ angular.module('lfw')
                 ngShow: '=',
                 label: "@",
                 required: '@',
+                name: '@',
                 ngMinlength: '@',
                 ngMaxlength: '@',
                 horizontal: '@'
             },
             compile: function(tElement, tAttrs) {
-                var v_elementId = LfwRandom.string(10);
+                var v_elementId = tAttrs['name'] || LfwRandom.string(10);
 
                 var v_input = tElement.find('input');
                 var v_label = tElement.find('label');
