@@ -689,8 +689,8 @@ angular.module('lfw')
                 return this.link;
             },
             template: [
+                    '<input type="text" class="form-control" placeholder="{{filterPlaceholder}}" ng-model="search[attrDescription]" ng-show="hasFilter" />',
                     '<div class="table-responsive" style="max-height: 200px; overflow-y: auto;">',
-                        '<input type="text" class="form-control" placeholder="{{filterPlaceholder}}" ng-model="search[attrDescription]" ng-show="hasFilter" />',
                         '<table class="table table-striped table-hover mini-list-grid" ng-show="completeList.length">',
                             '<tr ng-repeat="opt in completeList | filter:search">',
                                 '<td class="no-padding">',
