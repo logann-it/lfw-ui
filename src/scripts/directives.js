@@ -628,6 +628,8 @@ angular.module('lfw')
         return {
             restrict: 'E',
             scope: {
+                hasFilter: '=',
+                filterPlaceholder: '@',
                 completeList: '=',
                 selectedList: '=',
                 attrId: '@',
@@ -674,27 +676,33 @@ angular.module('lfw')
                 {
                     p_attrs['attrDescription'] = 'defaultDescription';
                 }
+                if (!p_attrs['hasFilter'])
+                {
+                    p_attrs['hasFilter'] = false;
+                }
+
                 return this.link;
             },
             template: [
-                '<div class="table-responsive" style="max-height: 200px; overflow-y: auto;">',
-                    '<table class="table table-striped table-hover mini-list-grid" ng-show="completeList.length">',
-                        '<tr ng-repeat="opt in completeList">',
-                            '<td class="no-padding">',
-                                '<div class="checkbox">',
-                                    '<label class="checkbox" ng-click="toggleOption(opt)">',
-                                        '<input type="checkbox" value="{{opt[attrId]}}" ng-checked="hasOption(opt)">{{attrDescriptionPrefix + opt[attrDescription] | translate}}',
-                                    '</label>',
-                                '</div>',
-                            '</td>',
-                        '</tr>',
-                    '</table>',
-                    '<div ng-show="completeList.length == 0">',
-                        '<span translate="{{\'global.no_records_found\' | translate}}"></span>',
-                        '&nbsp;&nbsp;<i class="fa fa-frown-o"></i>',
-                    '</div>',
-                '</div>'
-            ].join('')
+                    '<div class="table-responsive" style="max-height: 200px; overflow-y: auto;">',
+                        '<input type="text" class="form-control" placeholder="{{filterPlaceholder}}" ng-model="search[attrDescription]" ng-show="hasFilter" />',
+                        '<table class="table table-striped table-hover mini-list-grid" ng-show="completeList.length">',
+                            '<tr ng-repeat="opt in completeList | filter:search">',
+                                '<td class="no-padding">',
+                                    '<div class="checkbox">',
+                                        '<label class="checkbox" ng-click="toggleOption(opt)">',
+                                            '<input type="checkbox" value="{{opt[attrId]}}" ng-checked="hasOption(opt)">{{attrDescriptionPrefix + opt[attrDescription] | translate}}',
+                                        '</label>',
+                                    '</div>',
+                                '</td>',
+                            '</tr>',
+                        '</table>',
+                        '<div ng-show="completeList.length == 0">',
+                            '<span translate="{{\'global.no_records_found\' | translate}}"></span>',
+                            '&nbsp;&nbsp;<i class="fa fa-frown-o"></i>',
+                        '</div>',
+                    '</div>'
+                ].join(''),
         };
     })
     .directive('lfwBigListGrid', function()
