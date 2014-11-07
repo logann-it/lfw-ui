@@ -310,7 +310,7 @@ angular.module('lfw')
                 label: "@",
                 required: '@',
                 attrDescriptionPrefix: '@',
-                enum: '=',
+                enumeration: '=',
                 horizontal: '@'
             },
             compile: function (tElement, tAttrs) {
@@ -346,7 +346,7 @@ angular.module('lfw')
                 '<div class="form-group" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div>',
-                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enum">',
+                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enumeration">',
                             '<option value=""></option>',
                         '</select>',
                     '</div>',
@@ -539,9 +539,9 @@ angular.module('lfw')
             restrict: 'E',
             template: [
                 '<button type="button" class="btn btn-default" data-dismiss="modal">',
-                    '<span class="glyphicon glyphicon-ban-circle"></span> <span translate="global.actions.cancel"></span>',
+                '    <span class="glyphicon glyphicon-ban-circle"></span> <span translate="global.actions.cancel"></span>',
                 '</button>'
-            ].join('')
+            ].join('\n')
         };
     })
     .directive("lfwModalHeader", function() {
@@ -552,10 +552,10 @@ angular.module('lfw')
             },
             template: [
                '<div class="modal-header">',
-                    '<button type="button" class="close" data-dismiss="modal" ng-click="clear()">&times;</button>',
-                    '<h4 class="modal-title">{{title}}</h4>',
+                '    <button type="button" class="close" data-dismiss="modal" ng-click="clear()">&times;</button>',
+                '    <h4 class="modal-title">{{title}}</h4>',
                 '</div>'
-            ].join('')
+            ].join('\n')
         };
     })
     .directive("lfwModalBody", function() {

@@ -77,8 +77,8 @@ lfw.factory('LfwFilterPageFactory', function(ngTableParams)
                 $('#domainEditDialog').modal('show');
             };
 
-            scope.delete = function (id) {
-                model.delete({id: id},
+            scope.remove = function (id) {
+                model.remove({id: id},
                     function () {
                         scope.applyFilter();
                     });
