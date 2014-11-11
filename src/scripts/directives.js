@@ -5,7 +5,7 @@ angular.module('lfw')
         return {
             restrict: 'E',
             scope: {
-                href: '@',
+                href: '@'
             },
             template: [
                 '<a class="btn btn-primary" href={{href}}>',
@@ -311,7 +311,7 @@ angular.module('lfw')
                 label: "@",
                 required: '@',
                 attrDescriptionPrefix: '@',
-                enumeration: '=',
+                enum: '=',
                 horizontal: '@'
             },
             compile: function (tElement, tAttrs) {
@@ -347,7 +347,7 @@ angular.module('lfw')
                 '<div class="form-group" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div>',
-                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enumeration">',
+                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enum">',
                             '<option value=""></option>',
                         '</select>',
                     '</div>',
@@ -540,9 +540,9 @@ angular.module('lfw')
             restrict: 'E',
             template: [
                 '<button type="button" class="btn btn-default" data-dismiss="modal">',
-                '    <span class="glyphicon glyphicon-ban-circle"></span> <span translate="global.actions.cancel"></span>',
+                    '<span class="glyphicon glyphicon-ban-circle"></span> <span translate="global.actions.cancel"></span>',
                 '</button>'
-            ].join('\n')
+            ].join('')
         };
     })
     .directive("lfwModalHeader", function() {
@@ -553,10 +553,10 @@ angular.module('lfw')
             },
             template: [
                '<div class="modal-header">',
-                '    <button type="button" class="close" data-dismiss="modal" ng-click="clear()">&times;</button>',
-                '    <h4 class="modal-title">{{title}}</h4>',
+                    '<button type="button" class="close" data-dismiss="modal" ng-click="clear()">&times;</button>',
+                    '<h4 class="modal-title">{{title}}</h4>',
                 '</div>'
-            ].join('\n')
+            ].join('')
         };
     })
     .directive("lfwModalBody", function() {
@@ -584,12 +584,12 @@ angular.module('lfw')
             restrict: 'E',
             transclude: true,
             scope: {
-                title: '@'
+                headerTitle: '@'
             },
             template: [
                 '<div class="panel panel-default">',
                     '<div class="panel-heading">',
-                        '<h3 class="panel-title">{{title}}</h3>',
+                        '<h3 class="panel-title">{{headerTitle}}</h3>',
                     '</div>',
                     '<div class="panel-body" ng-transclude>',
                     '</div>',
