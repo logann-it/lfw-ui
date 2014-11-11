@@ -311,7 +311,7 @@ angular.module('lfw')
                 label: "@",
                 required: '@',
                 attrDescriptionPrefix: '@',
-                enum: '=',
+                enumeration: '=',
                 horizontal: '@'
             },
             compile: function (tElement, tAttrs) {
@@ -347,7 +347,7 @@ angular.module('lfw')
                 '<div class="form-group" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div>',
-                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enum">',
+                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enumeration">',
                             '<option value=""></option>',
                         '</select>',
                     '</div>',
