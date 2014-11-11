@@ -719,7 +719,7 @@ angular.module('lfw')
             {
                 var v_cols = element.find('lfw-column');
 
-                var v_table = '<div class="table-responsive"><table class="table table-striped" ng-table="tableParams">';
+                var v_table = '<div class="table-responsive"><table class="table table-striped table-hover" ng-table="tableParams">';
 
                 v_table += '<colgroup>';
                 for (var v_count = 0; v_count < v_cols.length; v_count++)
