@@ -713,11 +713,10 @@ angular.module('lfw')
                             '&nbsp;&nbsp;<i class="fa fa-frown-o"></i>',
                         '</div>',
                     '</div>'
-                ].join(''),
+                ].join('')
         };
     })
-    .directive('lfwBigListGrid', function()
-    {
+    .directive('lfwBigListGrid', function() {
         return {
             restrict: 'E',
             scope: false,
