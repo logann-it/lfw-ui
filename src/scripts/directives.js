@@ -17,6 +17,7 @@ angular.module('lfw')
     .directive("lfwCreateButton", function() {
         return {
             restrict: 'E',
+            replace: false,
             compile: function(p_element, p_attrs)
             {
                 if (p_attrs['className'])
@@ -69,6 +70,7 @@ angular.module('lfw')
     .directive("lfwPaginationInfo", function() {
         return {
             restrict: 'E',
+            replace: false,
             template: [
             '<p>',
                 '<span translate="global.pagination.showing"></span>',
@@ -83,6 +85,7 @@ angular.module('lfw')
     .directive("lfwFilterButton", function() {
         return {
             restrict: 'E',
+            replace: false,
             template: [
                 '<button class="btn btn-primary" onclick="return false;">',
                     '<i class="fa fa-search"></i> <span translate="global.actions.search"></span>',
@@ -93,6 +96,7 @@ angular.module('lfw')
     .directive("lfwHelpButton", function() {
         return {
             restrict: 'E',
+            replace: false,
             compile: function(p_element, p_attrs)
             {
                 if (p_attrs['text'])
@@ -114,6 +118,7 @@ angular.module('lfw')
     .directive("lfwPageHeader", function() {
         return {
             restrict: 'E',
+            replace: false,
             template: '<div class="page-header"><h1><i class="{{icon}}"></i>&nbsp;{{title}}</h1></div>',
             scope: {
                 'icon': "@icon",
@@ -124,6 +129,7 @@ angular.module('lfw')
     .directive("lfwCheckbox", function(LfwRandom) {
             return {
                 restrict: 'E',
+                replace: false,
                 template: [
                   '<div class="checkbox">',
                     '<label>',
@@ -140,6 +146,7 @@ angular.module('lfw')
     .directive("lfwTextArea", function(LfwRandom) {
         return {
             restrict: 'E',
+            replace: false,
             template: [
                 '<div class="form-group" show-errors>',
                     '<label class="control-label">{{label}}</label>',
@@ -187,6 +194,7 @@ angular.module('lfw')
     .directive("lfwInputText", function(LfwRandom) {
         return {
             restrict: 'E',
+            replace: false,
             template: [
                 '<div class="form-group"  ng-show="ngShow" show-errors>',
                     '<label class="control-label">{{label}}</label>',
@@ -256,6 +264,7 @@ angular.module('lfw')
     .directive("lfwInputTextArea", function(LfwRandom) {
         return {
             restrict: 'E',
+            replace: false,
             template: [
                 '<div class="form-group">',
                     '<label class="control-label">{{label}}</label>',
@@ -306,6 +315,7 @@ angular.module('lfw')
     .directive("lfwSelectEnum", function(LfwRandom) {
         return {
             restrict: 'E',
+            replace: false,
             scope: {
                 ngModel: '=',
                 label: "@",
@@ -358,6 +368,7 @@ angular.module('lfw')
     .directive("lfwSelect", function(LfwRandom) {
         return {
             restrict: 'E',
+            replace: false,            
             scope: {
                 ngModel: '=',
                 label: "@",
@@ -420,6 +431,7 @@ angular.module('lfw')
     .directive("lfwPageFilter", function() {
         return {
             restrict: 'E',
+            replace: false,
             transclude: true,
             template: [
                 '<div class="panel panel-default">',
@@ -435,6 +447,7 @@ angular.module('lfw')
     .directive("lfwDeleteButton", function() {
         return {
             restrict: 'E',
+            replace: true,
             compile: function(p_element, p_attrs)
             {
                 if (p_attrs['className'])
@@ -446,22 +459,25 @@ angular.module('lfw')
                 }
                 if (p_attrs['onlyIcon']) {
                     p_element.find("span[translate]").remove();
-                }                
+                }               
             },
             scope: {
                 'action': "&confirmAction",
                 disable: '@'
             },
             template: [
-                '<button type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger" ng-disabled="{{disable}}">',
-                    '<span class="glyphicon glyphicon-trash"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
-                '</button>'
+                '<span>',
+                '    <button type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger" ng-disabled="{{disable}}">',
+                '        <span class="glyphicon glyphicon-trash"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
+                '    </button>',
+                '</span>'     
             ].join('')
         };
     })
     .directive("lfwButton", function() {
         return {
             restrict: 'E',
+            replace: false,
             compile: function(p_element, p_attrs)
             {
                 if (p_attrs['className'])
@@ -486,6 +502,7 @@ angular.module('lfw')
     .directive("lfwEditButton", function() {
         return {
             restrict: 'E',
+            replace: true,
             scope: {
                 disable: '@'
             },
@@ -503,15 +520,18 @@ angular.module('lfw')
                 }
             },
             template: [
-                '<button class="btn" type="button" ng-disabled="{{disable}}">',
-                    '<span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs hidden-sm" translate="global.actions.edit"></span>',
-                '</button>'
+                '<span>',
+                '    <button class="btn" type="button" ng-disabled="{{disable}}">',
+                '        <span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs hidden-sm" translate="global.actions.edit"></span>',
+                '    </button>',
+                'span'
             ].join('')
         };
     })
     .directive("lfwBackButton", function($window) {
         return {
             restrict: 'E',
+            replace: false,
             compile: function(p_element, p_attrs)
             {
                 if (p_attrs['onlyIcon']) {
@@ -534,6 +554,7 @@ angular.module('lfw')
     .directive("lfwSaveSubmitButton", function() {
         return {
             restrict: 'E',
+            replace: false,
             template: [
                 '<button type="submit" class="btn btn-primary">',
                     '<span class="glyphicon glyphicon-save"></span> <span translate="global.actions.save"></span>',
@@ -554,6 +575,7 @@ angular.module('lfw')
     .directive("lfwModalHeader", function() {
         return {
             restrict: 'E',
+            replace: false,
             scope: {
                 title: '@'
             },
@@ -568,6 +590,7 @@ angular.module('lfw')
     .directive("lfwModalBody", function() {
         return {
             restrict: 'E',
+            replace: false,
             transclude: true,
             template: [
                 '<div class="modal-body" ng-transclude>',
@@ -578,6 +601,7 @@ angular.module('lfw')
     .directive("lfwModalFooter", function() {
         return {
             restrict: 'E',
+            replace: false,
             transclude: true,
             template: [
                 '<div class="modal-footer" ng-transclude>',
@@ -588,6 +612,7 @@ angular.module('lfw')
     .directive("lfwPanel", function() {
         return {
             restrict: 'E',
+            replace: false,
             transclude: true,
             scope: {
                 headerTitle: '@'
@@ -606,6 +631,7 @@ angular.module('lfw')
     .directive("lfwDomainEditDialog", function() {
         return {
             restrict: 'E',
+            replace: false,
             transclude: true,
             compile: function(p_element, p_attrs)
             {
@@ -638,6 +664,7 @@ angular.module('lfw')
     {
         return {
             restrict: 'E',
+            replace: false,
             scope: {
                 hasFilter: '=',
                 filterPlaceholder: '@',
@@ -719,6 +746,7 @@ angular.module('lfw')
     .directive('lfwBigListGrid', function() {
         return {
             restrict: 'E',
+            replace: true,
             scope: false,
             compile: function(element)
             {
@@ -729,7 +757,7 @@ angular.module('lfw')
                 v_table += '<colgroup>';
                 for (var v_count = 0; v_count < v_cols.length; v_count++)
                 {
-                    var v_column = $(v_cols.get(v_count));
+                    var v_column = $(v_cols[v_count]);
 
                     v_table += '<col ';
 
@@ -745,7 +773,7 @@ angular.module('lfw')
                 v_table += '<tr ng-repeat="row in ' + element.attr('data-source') + '">';
                 for (var v_count = 0; v_count < v_cols.length; v_count++)
                 {
-                    var v_column = $(v_cols.get(v_count));
+                    var v_column = $(v_cols[v_count]);
 
                     v_table += '<td ';
 
