@@ -133,13 +133,14 @@ angular.module('lfw')
                 template: [
                   '<div class="checkbox">',
                     '<label>',
-                      '<input type="checkbox" ng-model="ngModel"> {{label}}',
+                      '<input type="checkbox" ng-model="ngModel" name="{{name}}"> {{label}}',
                     '</label>',
                   '</div>'
                 ].join(''),
                 scope: {
                     ngModel: '=',
-                    label: "@"
+                    label: "@",
+                    name: "@"
                 }
             };
         })
@@ -190,16 +191,15 @@ angular.module('lfw')
             }
         };
     })
-
     .directive("lfwInputText", function(LfwRandom) {
         return {
             restrict: 'E',
             replace: false,
             template: [
-                '<div class="form-group"  ng-show="ngShow" show-errors>',
+                '<div class="form-group" ng-show="ngShow" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div class="lfw-group">',
-                        '<input type="text" class="form-control" ng-model="ngModel" name="{{name}}">',
+                        '<input type="text" class="form-control" name="{{name}}">',
                     '</div>',
                 '</div>'
             ].join(''),
@@ -220,17 +220,17 @@ angular.module('lfw')
                 var v_label = tElement.find('label');
                 var v_div = tElement.find('div.form-group')
                 var v_divGroup = tElement.find('div.lfw-group');
+                
+                v_input.attr('ng-model', tAttrs['ngModel']);
 
                 v_input.attr("name", v_elementId).attr("id", v_elementId);
                 v_label.attr("for", v_elementId);
 
-                if (tAttrs['required'])
-                {
+                if (tAttrs['required']) {
                     v_label.addClass("required_field");    
                 }
-
-                if (tAttrs['horizontal'])
-                {
+                
+                if (tAttrs['horizontal']) {
                     var v_divInput = v_input.parent();
                     v_label.addClass('col-sm-2');
                     v_divInput.addClass('col-sm-10');
@@ -253,8 +253,7 @@ angular.module('lfw')
 
                 var v_validationAttributes = ['required', 'ngMinlength', 'ngMaxlength'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
-                    if (tAttrs[p_validation])
-                    {
+                    if (tAttrs[p_validation]) {
                         v_input.attr(tAttrs.$attr[p_validation], tAttrs[p_validation]);
                     }
                 });
@@ -554,7 +553,7 @@ angular.module('lfw')
     .directive("lfwSaveSubmitButton", function() {
         return {
             restrict: 'E',
-            replace: false,
+            replace: true,
             template: [
                 '<button type="submit" class="btn btn-primary">',
                     '<span class="glyphicon glyphicon-save"></span> <span translate="global.actions.save"></span>',
