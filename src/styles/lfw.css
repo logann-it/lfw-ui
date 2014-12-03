@@ -32,6 +32,13 @@ table.mini-list-grid td {
     text-align: center;
 }
 
+.form-group.required .control-label:after {
+	content:" *";
+}
+
+.form-group.required .control-label {
+	font-weight: bold;
+}
 
 .required_field {
     font-weight: bold;

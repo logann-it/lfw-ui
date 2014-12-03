@@ -191,6 +191,43 @@ angular.module('lfw')
             }
         };
     })
+    .directive('lfwUpperLetters', function() {
+        return {
+            require: 'ngModel',
+            restrict: 'A',
+            link: function (scope, element, attributes, ngModelCtrl) {
+                ngModelCtrl.$parsers.push(function(text) {
+                    var transformed = text.replace(/[^a-zA-Z]/g, '').toUpperCase();
+                    if(transformed !== text) {
+                        ngModelCtrl.$setViewValue(transformed);
+                        ngModelCtrl.$render();
+                    }
+                    return transformed;
+                });
+            }
+        }; 
+    })
+    .filter('zpad', function() {
+        return function(input, n) {
+            return input.length >= n ? input : ('0'.repeat(n) + input).slice(-1 * n);
+        };
+    })
+    .directive('lfwDigits', function() {
+        return {
+            require: 'ngModel',
+            restrict: 'A',
+            link: function (scope, element, attributes, ngModelCtrl) {
+                ngModelCtrl.$parsers.push(function(text) {
+                    var transformed = text.replace(/[^0-9]/g, '');
+                    if(transformed !== text) {
+                        ngModelCtrl.$setViewValue(transformed);
+                        ngModelCtrl.$render();
+                    }
+                    return transformed;
+                });
+            }
+        }; 
+    })    
     .directive("lfwInputText", function(LfwRandom) {
         return {
             restrict: 'E',
@@ -199,7 +236,7 @@ angular.module('lfw')
                 '<div class="form-group" ng-show="ngShow" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div class="lfw-group">',
-                        '<input type="text" class="form-control" name="{{name}}">',
+                        '<input type="text" class="form-control" ng-model="ngModel" name="{{name}}">',
                     '</div>',
                 '</div>'
             ].join(''),
@@ -220,8 +257,6 @@ angular.module('lfw')
                 var v_label = tElement.find('label');
                 var v_div = tElement.find('div.form-group')
                 var v_divGroup = tElement.find('div.lfw-group');
-                
-                v_input.attr('ng-model', tAttrs['ngModel']);
 
                 v_input.attr("name", v_elementId).attr("id", v_elementId);
                 v_label.attr("for", v_elementId);
