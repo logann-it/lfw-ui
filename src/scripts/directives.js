@@ -18,10 +18,8 @@ angular.module('lfw')
         return {
             restrict: 'E',
             replace: false,
-            compile: function(p_element, p_attrs)
-            {
-                if (p_attrs['className'])
-                {
+            compile: function(p_element, p_attrs) {
+                if (p_attrs['className']) {
                     p_element.find('button').addClass(p_attrs['className']);
                 }
             },
@@ -97,14 +95,11 @@ angular.module('lfw')
         return {
             restrict: 'E',
             replace: false,
-            compile: function(p_element, p_attrs)
-            {
-                if (p_attrs['text'])
-                {
+            compile: function(p_element, p_attrs) {
+                if (p_attrs['text']) {
                     p_element.find('button').attr('data-content', p_attrs['text']);
                 }
-                if (p_attrs[' data-placement'])
-                {
+                if (p_attrs[' data-placement']) {
                     p_element.find('button').attr('data-placement', p_attrs['data-placement']);
                 }
             },
@@ -782,22 +777,19 @@ angular.module('lfw')
             restrict: 'E',
             replace: true,
             scope: false,
-            compile: function(element)
-            {
+            compile: function(element) {
                 var v_cols = element.find('lfw-column');
 
                 var v_table = '<div class="table-responsive"><table class="table table-striped table-hover" ng-table="tableParams">';
 
                 v_table += '<colgroup>';
-                for (var v_count = 0; v_count < v_cols.length; v_count++)
-                {
+                for (var v_count = 0; v_count < v_cols.length; v_count++) {
                     var v_column = $(v_cols[v_count]);
 
                     v_table += '<col ';
 
-                    if (v_column.attr('ng-show'))
-                    {
-                        v_table += ' ng-show="' + v_column.attr('ng-show')  +'" ' ;
+                    if (v_column.attr('ng-show')) {
+                        v_table += ' ng-show="' + v_column.attr('ng-show')  + '" ' ;
                     }
                     v_table += ' width="' + v_column.attr('width') + '"/>';
                 }
@@ -805,41 +797,32 @@ angular.module('lfw')
 
                 v_table += '<tbody>'
                 v_table += '<tr ng-repeat="row in ' + element.attr('data-source') + '">';
-                for (var v_count = 0; v_count < v_cols.length; v_count++)
-                {
+                for (var v_count = 0; v_count < v_cols.length; v_count++) {
                     var v_column = $(v_cols[v_count]);
 
                     v_table += '<td ';
 
-                    if (v_column.attr('class'))
-                    {
+                    if (v_column.attr('class')) {
                         v_table += ' class="' + v_column.attr('class') + '" ';
                     }
-                    if (v_column.attr('align'))
-                    {
+                    if (v_column.attr('align')) {
                         v_table += ' align="' + v_column.attr('align') + '" ';
                     }
-                    if (v_column.attr('ng-show'))
-                    {
+                    if (v_column.attr('ng-show')) {
                         v_table += ' ng-show="' + v_column.attr('ng-show')  +'" ' ;
                     }
-                    if (v_column.attr('sortable'))
-                    {
+                    if (v_column.attr('sortable')) {
                         v_table += ' sortable="' + v_column.attr('sortable') + '" ';
                     }
-                    if (v_column.attr('title'))
-                    {
+                    if (v_column.attr('title')) {
                         v_table += ' data-title="' + v_column.attr('title') + '" ';
                     }
 
 
                     v_table += '>'
-                    if (v_column.html() != '')
-                    {
+                    if (v_column.html() != '') {
                         v_table += v_column.html();
-                    }
-                    else
-                    {
+                    } else {
                         v_table += '{{row.' + v_column.attr('value') + '}}';
                     }
                     v_table += '</td>';
