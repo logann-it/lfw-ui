@@ -517,6 +517,10 @@ angular.module('lfw')
                 if (p_attrs['onlyIcon']) {
                     p_element.find("span[translate]").remove();
                 }
+                if (p_attrs['class']) {
+                    p_element.removeAttr("class");
+                    p_element.find('button').addClass(p_attrs['class']);
+                }
                 return this.link;
             },      
             link: function(scope, element, attrs) {
