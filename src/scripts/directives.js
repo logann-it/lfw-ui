@@ -471,7 +471,7 @@ angular.module('lfw')
                 '<div class="panel panel-default">',
                     '<div class="panel-heading"><strong><i class="fa fa-filter"></i> <span translate="global.actions.filter"></span></strong></div>',
                     '<div class="panel-body">',
-                        '<form role="form" novalidate class="form-horizontal"  ng-transclude>',
+                        '<form role="form" name="form" novalidate class="form-horizontal"  ng-transclude>',
                         '</form>',
                     '</div>',
                 '</div>'
