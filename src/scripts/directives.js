@@ -689,8 +689,7 @@ angular.module('lfw')
             ].join('')
         };
     })
-    .directive("lfwManyToManyCheckbox", function(LfwRandom)
-    {
+    .directive("lfwManyToManyCheckbox", function() {
         return {
             restrict: 'E',
             replace: false,
@@ -701,53 +700,44 @@ angular.module('lfw')
                 selectedList: '=',
                 attrId: '@',
                 attrDescriptionPrefix: '@',
-                attrDescription: '@'
+                attrDescription: '@',
+                onAdd: '=',
+                onCompare: '='
+
             },
             link: function(scope, element, attrs) {
-                scope.hasOption = function(option) {
+                scope.onCompareAction = scope.onCompare || function(lhs, rhs) {
+                    return lha[scope.attrId] === rhs[scope.attrId];
+                };
+                
+                scope.onAddAction = scope.onAdd || function(list, option) {
+                    list.push(option);
+                };
+                
+                scope.indexOf = function(option) {
                     if (scope.selectedList)  {
-                        for(var i = 0; i < scope.selectedList.length; i++) {
-                            if (scope.selectedList[i][scope.attrId] === option[scope.attrId]) {
-                                return true;
+                        for(var index = 0; index < scope.selectedList.length; ++index) {
+                            if (scope.onCompareAction(scope.selectedList[index], option)) {
+                                return index;
                             }
                         }
                     }
-                    return false;
+                    return -1;
                 };
                 
                 scope.toggleOption = function(option) {
-                    if (scope.hasOption(option))
-                    {
-                        var i;
-                        for(i = 0; i < scope.selectedList.length; i++) {
-                           if (scope.selectedList[i][scope.attrId] === option[scope.attrId])
-                           {
-                              break;
-                           }
-                        }
-                        scope.selectedList.splice(i,1);
-                    }
-                    else
-                    {
-                        scope.selectedList.push(option);
+                    var index = scope.indexOf(option);
+                    if (index != -1) {
+                        scope.selectedList.splice(index, 1);
+                    } else {
+                        scope.onAddAction(scope.selectedList, option);
                     }
                 };
             },
-            compile: function(p_element, p_attrs)
-            {
-                if (!p_attrs['attrId'])
-                {
-                    p_attrs['attrId'] = 'id';
-                }
-                if (!p_attrs['attrDescription'])
-                {
-                    p_attrs['attrDescription'] = 'defaultDescription';
-                }
-                if (!p_attrs['hasFilter'])
-                {
-                    p_attrs['hasFilter'] = false;
-                }
-
+            compile: function(p_element, p_attrs) {
+                p_attrs['attrId'] = p_attrs['attrId'] || 'id';
+                p_attrs['attrDescription'] = p_attrs['attrDescription'] || 'defaultDescription';
+                p_attrs['hasFilter'] = p_attrs['hasFilter'] || false;
                 return this.link;
             },
             template: [
@@ -758,7 +748,7 @@ angular.module('lfw')
                                 '<td class="no-padding">',
                                     '<div class="checkbox">',
                                         '<label class="checkbox" ng-click="toggleOption(opt)">',
-                                            '<input type="checkbox" value="{{opt[attrId]}}" ng-checked="hasOption(opt)">{{attrDescriptionPrefix + opt[attrDescription] | translate}}',
+                                            '<input type="checkbox" value="{{opt[attrId]}}" ng-checked="indexOf(opt) != -1">{{attrDescriptionPrefix + opt[attrDescription] | translate}}',
                                         '</label>',
                                     '</div>',
                                 '</td>',
