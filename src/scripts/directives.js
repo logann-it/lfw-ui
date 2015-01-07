@@ -191,12 +191,13 @@ angular.module('lfw')
                 '<div class="form-group"  ng-show="ngShow" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div class="lfw-group">',
-                        '<input type="text" class="form-control" ng-model="ngModel" name="{{name}}">',
+                        '<input type="text" class="form-control" ng-change="ngChange" ng-model="ngModel" name="{{name}}">',
                     '</div>',
                 '</div>'
             ].join(''),
             scope: {
                 ngModel: '=',
+                ngChange: '=',
                 ngShow: '=',
                 label: "@",
                 required: '@',
@@ -230,6 +231,16 @@ angular.module('lfw')
 
                 if (!tAttrs['ngShow']) {
                     v_div.removeAttr('ng-show');
+                }
+
+                if (tAttrs['disabled'])
+                {
+                    v_input.attr("disabled", "disabled");
+                }
+
+                if (!tAttrs['ngChange']) {
+                    v_div.removeAttr('ng-change');
+
                 }
 
                 if (tAttrs['afterAddOn']) {
