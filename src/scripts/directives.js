@@ -88,7 +88,7 @@ angular.module('lfw')
             replace: false,
             template: [
                 '<button class="btn btn-primary" onclick="return false;">',
-                    '<i class="fa fa-search"></i> <span translate="global.actions.search"></span>',
+                    '<i class="glyphicon glyphicon-search"></i> <span translate="global.actions.search"></span>',
                 '</button>'
             ].join('')
         };
@@ -534,7 +534,7 @@ angular.module('lfw')
                 icon: '@'
             },
             template: [
-                '<button class="btn" type="button">',
+                '<button class="btn btn-default" type="button">',
                     '<span class="{{icon}}"></span> <span class="hidden-xs hidden-sm">{{label}}</span>',
                 '</button>'
             ].join('')
@@ -562,7 +562,7 @@ angular.module('lfw')
             },
             template: [
                 '<span>',
-                '    <button class="btn" type="button" ng-disabled="{{disable}}">',
+                '    <button class="btn btn-default" type="button" ng-disabled="{{disable}}">',
                 '        <span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs hidden-sm" translate="global.actions.edit"></span>',
                 '    </button>',
                 'span'
@@ -586,7 +586,7 @@ angular.module('lfw')
                 });
             },
             template: [
-                '<button class="btn" type="button">',
+                '<button class="btn btn-default" type="button">',
                     '<span class="glyphicon glyphicon-chevron-left"></span> <span class="hidden-xs hidden-sm" translate="global.actions.back"></span>',
                 '</button>'
             ].join('')
