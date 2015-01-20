@@ -18,10 +18,8 @@ angular.module('lfw')
         return {
             restrict: 'E',
             replace: false,
-            compile: function(p_element, p_attrs)
-            {
-                if (p_attrs['className'])
-                {
+            compile: function(p_element, p_attrs) {
+                if (p_attrs['className']) {
                     p_element.find('button').addClass(p_attrs['className']);
                 }
             },
@@ -97,14 +95,11 @@ angular.module('lfw')
         return {
             restrict: 'E',
             replace: false,
-            compile: function(p_element, p_attrs)
-            {
-                if (p_attrs['text'])
-                {
+            compile: function(p_element, p_attrs) {
+                if (p_attrs['text']) {
                     p_element.find('button').attr('data-content', p_attrs['text']);
                 }
-                if (p_attrs[' data-placement'])
-                {
+                if (p_attrs[' data-placement']) {
                     p_element.find('button').attr('data-placement', p_attrs['data-placement']);
                 }
             },
@@ -411,7 +406,6 @@ angular.module('lfw')
                 attrId: '@',
                 attrDescription: '@',
                 horizontal: '@'
-
             },
             compile: function (tElement, tAttrs) {
                 var v_elementId = LfwRandom.string(10);
@@ -432,14 +426,14 @@ angular.module('lfw')
                 if (tAttrs['required'])
                 {
                     v_label.addClass("required_field");    
-                }
+                }                
 
                 if (tAttrs['disabled'])
                 {
                     v_select.attr("disabled", "disabled");
                 }
 
-
+                
                 var v_validationAttributes = ['required'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
                     if (tAttrs[p_validation])
@@ -478,7 +472,7 @@ angular.module('lfw')
                 '<div class="panel panel-default">',
                     '<div class="panel-heading"><strong><i class="fa fa-filter"></i> <span translate="global.actions.filter"></span></strong></div>',
                     '<div class="panel-body">',
-                        '<form role="form" novalidate class="form-horizontal"  ng-transclude>',
+                        '<form role="form" name="form" novalidate class="form-horizontal"  ng-transclude>',
                         '</form>',
                     '</div>',
                 '</div>'
@@ -701,8 +695,7 @@ angular.module('lfw')
             ].join('')
         };
     })
-    .directive("lfwManyToManyCheckbox", function(LfwRandom)
-    {
+    .directive("lfwManyToManyCheckbox", function() {
         return {
             restrict: 'E',
             replace: false,
@@ -713,53 +706,44 @@ angular.module('lfw')
                 selectedList: '=',
                 attrId: '@',
                 attrDescriptionPrefix: '@',
-                attrDescription: '@'
+                attrDescription: '@',
+                onAdd: '=',
+                onCompare: '='
+
             },
             link: function(scope, element, attrs) {
-                scope.hasOption = function(option) {
+                scope.onCompareAction = scope.onCompare || function(lhs, rhs) {
+                    return lha[scope.attrId] === rhs[scope.attrId];
+                };
+                
+                scope.onAddAction = scope.onAdd || function(list, option) {
+                    list.push(option);
+                };
+                
+                scope.indexOf = function(option) {
                     if (scope.selectedList)  {
-                        for(var i = 0; i < scope.selectedList.length; i++) {
-                            if (scope.selectedList[i][scope.attrId] === option[scope.attrId]) {
-                                return true;
+                        for(var index = 0; index < scope.selectedList.length; ++index) {
+                            if (scope.onCompareAction(scope.selectedList[index], option)) {
+                                return index;
                             }
                         }
                     }
-                    return false;
+                    return -1;
                 };
                 
                 scope.toggleOption = function(option) {
-                    if (scope.hasOption(option))
-                    {
-                        var i;
-                        for(i = 0; i < scope.selectedList.length; i++) {
-                           if (scope.selectedList[i][scope.attrId] === option[scope.attrId])
-                           {
-                              break;
-                           }
-                        }
-                        scope.selectedList.splice(i,1);
-                    }
-                    else
-                    {
-                        scope.selectedList.push(option);
+                    var index = scope.indexOf(option);
+                    if (index != -1) {
+                        scope.selectedList.splice(index, 1);
+                    } else {
+                        scope.onAddAction(scope.selectedList, option);
                     }
                 };
             },
-            compile: function(p_element, p_attrs)
-            {
-                if (!p_attrs['attrId'])
-                {
-                    p_attrs['attrId'] = 'id';
-                }
-                if (!p_attrs['attrDescription'])
-                {
-                    p_attrs['attrDescription'] = 'defaultDescription';
-                }
-                if (!p_attrs['hasFilter'])
-                {
-                    p_attrs['hasFilter'] = false;
-                }
-
+            compile: function(p_element, p_attrs) {
+                p_attrs['attrId'] = p_attrs['attrId'] || 'id';
+                p_attrs['attrDescription'] = p_attrs['attrDescription'] || 'defaultDescription';
+                p_attrs['hasFilter'] = p_attrs['hasFilter'] || false;
                 return this.link;
             },
             template: [
@@ -770,7 +754,7 @@ angular.module('lfw')
                                 '<td class="no-padding">',
                                     '<div class="checkbox">',
                                         '<label class="checkbox" ng-click="toggleOption(opt)">',
-                                            '<input type="checkbox" value="{{opt[attrId]}}" ng-checked="hasOption(opt)">{{attrDescriptionPrefix + opt[attrDescription] | translate}}',
+                                            '<input type="checkbox" value="{{opt[attrId]}}" ng-checked="indexOf(opt) != -1">{{attrDescriptionPrefix + opt[attrDescription] | translate}}',
                                         '</label>',
                                     '</div>',
                                 '</td>',
@@ -789,22 +773,19 @@ angular.module('lfw')
             restrict: 'E',
             replace: true,
             scope: false,
-            compile: function(element)
-            {
+            compile: function(element) {
                 var v_cols = element.find('lfw-column');
 
                 var v_table = '<div class="table-responsive"><table class="table table-striped table-hover" ng-table="tableParams">';
 
                 v_table += '<colgroup>';
-                for (var v_count = 0; v_count < v_cols.length; v_count++)
-                {
+                for (var v_count = 0; v_count < v_cols.length; v_count++) {
                     var v_column = $(v_cols[v_count]);
 
                     v_table += '<col ';
 
-                    if (v_column.attr('ng-show'))
-                    {
-                        v_table += ' ng-show="' + v_column.attr('ng-show')  +'" ' ;
+                    if (v_column.attr('ng-show')) {
+                        v_table += ' ng-show="' + v_column.attr('ng-show')  + '" ' ;
                     }
                     v_table += ' width="' + v_column.attr('width') + '"/>';
                 }
@@ -812,41 +793,32 @@ angular.module('lfw')
 
                 v_table += '<tbody>'
                 v_table += '<tr ng-repeat="row in ' + element.attr('data-source') + '">';
-                for (var v_count = 0; v_count < v_cols.length; v_count++)
-                {
+                for (var v_count = 0; v_count < v_cols.length; v_count++) {
                     var v_column = $(v_cols[v_count]);
 
                     v_table += '<td ';
 
-                    if (v_column.attr('class'))
-                    {
+                    if (v_column.attr('class')) {
                         v_table += ' class="' + v_column.attr('class') + '" ';
                     }
-                    if (v_column.attr('align'))
-                    {
+                    if (v_column.attr('align')) {
                         v_table += ' align="' + v_column.attr('align') + '" ';
                     }
-                    if (v_column.attr('ng-show'))
-                    {
+                    if (v_column.attr('ng-show')) {
                         v_table += ' ng-show="' + v_column.attr('ng-show')  +'" ' ;
                     }
-                    if (v_column.attr('sortable'))
-                    {
+                    if (v_column.attr('sortable')) {
                         v_table += ' sortable="' + v_column.attr('sortable') + '" ';
                     }
-                    if (v_column.attr('title'))
-                    {
+                    if (v_column.attr('title')) {
                         v_table += ' data-title="' + v_column.attr('title') + '" ';
                     }
 
 
                     v_table += '>'
-                    if (v_column.html() != '')
-                    {
+                    if (v_column.html() != '') {
                         v_table += v_column.html();
-                    }
-                    else
-                    {
+                    } else {
                         v_table += '{{row.' + v_column.attr('value') + '}}';
                     }
                     v_table += '</td>';
