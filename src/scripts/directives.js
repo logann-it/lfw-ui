@@ -713,7 +713,7 @@ angular.module('lfw')
             },
             link: function(scope, element, attrs) {
                 scope.onCompareAction = scope.onCompare || function(lhs, rhs) {
-                    return lha[scope.attrId] === rhs[scope.attrId];
+                    return lhs[scope.attrId] === rhs[scope.attrId];
                 };
                 
                 scope.onAddAction = scope.onAdd || function(list, option) {
