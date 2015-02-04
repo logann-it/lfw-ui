@@ -213,7 +213,7 @@ angular.module('lfw')
             restrict: 'A',
             link: function (scope, element, attributes, ngModelCtrl) {
                 ngModelCtrl.$parsers.push(function(text) {
-                    var transformed = text.replace(/[^0-9]/g, '');
+                    var transformed = text && text.replace(/[^0-9]/g, '');
                     if(transformed !== text) {
                         ngModelCtrl.$setViewValue(transformed);
                         ngModelCtrl.$render();
