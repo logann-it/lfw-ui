@@ -1,6 +1,30 @@
 'use strict';
 
 angular.module('lfw')
+    .directive("lfwOfflineDisabled", function( $compile ) {
+        // http://stackoverflow.com/questions/17534343/difference-between-the-pre-compile-and-post-compile-element-in-angularjs-directi
+        return {
+            restrict: 'A',
+            priority: 101,
+            compile: function(elem, attrs) {
+                var lfwOfflineEnabled = elem.attr('lfw-offline-enabled') === undefined ? elem.parent('[lfw-offline-enabled]').attr('lfw-offline-enabled') : elem.attr('lfw-offline-enabled'),
+                    watchOnline = lfwOfflineEnabled === undefined ? 'true' : (lfwOfflineEnabled || 'false'),
+                    enabled = '$root.online',
+                    disabled = '!' + enabled,
+                    ngEnabled = '!' + attrs.ngDisabled + ' && ' + enabled,
+                    ngDisabled = '! (' + ngEnabled + ')';
+
+                return function (scope, elem, attrs) {
+                    if ( scope.$root.online !== undefined && scope.$eval(watchOnline) ) {
+                        elem.attr( 'ng-disabled', attrs.ngDisabled ? ngDisabled : disabled );
+                    }
+
+                    elem.removeAttr( 'lfw-offline-disabled' );
+                    elem.replaceWith( $compile(elem)(scope) );
+                };
+            }
+        };
+    })
     .directive("lfwCreateLink", function() {
         return {
             restrict: 'E',
@@ -8,7 +32,7 @@ angular.module('lfw')
                 href: '@'
             },
             template: [
-                '<a class="btn btn-primary" href={{href}}>',
+                '<a lfw-offline-disabled class="btn btn-primary" href={{href}}>',
                     '<span class="glyphicon glyphicon-plus"></span> <span translate="global.actions.create"></span>',
                 '</a>'
             ].join('')
@@ -24,7 +48,7 @@ angular.module('lfw')
                 }
             },
             template: [
-                '<button class="btn btn-primary" onclick="return false;">',
+                '<button lfw-offline-disabled class="btn btn-primary" onclick="return false;">',
                     '<span class="glyphicon glyphicon-plus"></span> <span translate="global.actions.create"></span>',
                 '</button>'
             ].join('')
@@ -85,7 +109,7 @@ angular.module('lfw')
             restrict: 'E',
             replace: false,
             template: [
-                '<button class="btn btn-primary" onclick="return false;">',
+                '<button lfw-offline-disabled class="btn btn-primary" onclick="return false;">',
                     '<i class="glyphicon glyphicon-search"></i> <span translate="global.actions.search"></span>',
                 '</button>'
             ].join('')
@@ -494,7 +518,7 @@ angular.module('lfw')
                 }
                 if (p_attrs['onlyIcon']) {
                     p_element.find("span[translate]").remove();
-                }               
+                }
             },
             scope: {
                 'action': "&confirmAction",
@@ -502,7 +526,7 @@ angular.module('lfw')
             },
             template: [
                 '<span>',
-                '    <button type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger" ng-disabled="{{disable}}">',
+                '    <button lfw-offline-disabled type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger" ng-disabled="{{disable}}">',
                 '        <span class="glyphicon glyphicon-trash"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
                 '    </button>',
                 '</span>'     
@@ -556,7 +580,7 @@ angular.module('lfw')
             },
             template: [
                 '<span>',
-                '    <button class="btn btn-default" type="button" ng-disabled="{{disable}}">',
+                '    <button lfw-offline-disabled class="btn btn-default" type="button" ng-disabled="{{disable}}">',
                 '        <span class="glyphicon glyphicon-pencil"></span> <span class="hidden-xs hidden-sm" translate="global.actions.edit"></span>',
                 '    </button>',
                 'span'
@@ -591,7 +615,7 @@ angular.module('lfw')
             restrict: 'E',
             replace: true,
             template: [
-                '<button type="submit" class="btn btn-primary">',
+                '<button lfw-offline-disabled type="submit" class="btn btn-primary">',
                     '<span class="glyphicon glyphicon-save"></span> <span translate="global.actions.save"></span>',
                 '</button>'
             ].join('')
@@ -833,4 +857,3 @@ angular.module('lfw')
             }
         };
     });
-
