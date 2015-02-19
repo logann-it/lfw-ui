@@ -20,6 +20,7 @@ angular.module('lfw')
                     }
 
                     elem.removeAttr( 'lfw-offline-disabled' );
+                    elem.unbind();
                     elem.replaceWith( $compile(elem)(scope) );
                 };
             }
