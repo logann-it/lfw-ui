@@ -25,6 +25,26 @@ angular.module('lfw')
             }
         };
     })
+    .directive("lfwActiveRadioButton", function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            template: [
+                '<div class="form-group lfw-active-radio-button">',
+                    '<div class="row">',
+                        '<div class="col-sm-12">',
+                            '<input type="radio" name="lfw-active-radio-button" ng-model="filter.active" value="true">',
+                            '<span translate="global.actions.active.true"></span>',
+                            '<input type="radio" name="lfw-active-radio-button" ng-model="filter.active" value="false">',
+                            '<span translate="global.actions.active.false"></span>',
+                            '<input type="radio" name="lfw-active-radio-button" ng-model="filter.active" value="">',
+                            '<span translate="global.actions.active.null"></span>',
+                        '</div>',
+                    '</div>',
+                '</div>'
+            ].join('')
+        }
+    })
     .directive("lfwCreateLink", function() {
         return {
             restrict: 'E',

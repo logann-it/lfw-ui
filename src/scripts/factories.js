@@ -34,7 +34,9 @@ lfw.factory('LfwFilterPageFactory', function(ngTableParams) {
                 scope.tableParams.reload();
             }
             scope.clearFilter = function() {
-                scope.filter = {};
+                scope.filter = {
+                    active: "true"
+                };
             }
             scope.clearFilter();
             scope.save = function() {
