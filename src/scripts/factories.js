@@ -1,3 +1,20 @@
+lfw.filter( 'lfwEquipmentBy', function() {
+    return function( equipments, property, match ) {
+        var filter = [];
+        if ( match === undefined ) {
+            return equipments;
+        }
+
+        angular.forEach( equipments, function( equipment ) {
+            var value = '' + equipment[property];
+            if ( value.indexOf( match ) !== -1 ) {
+                filter.push(equipment);
+            }
+        } );
+        return filter;
+    };
+});
+
 lfw.factory('LfwRandom', function() {
     return {
         string: function(p_length, p_charSet) {
