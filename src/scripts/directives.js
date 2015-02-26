@@ -288,7 +288,8 @@ angular.module('lfw')
                 name: '@',
                 ngMinlength: '@',
                 ngMaxlength: '@',
-                horizontal: '@'
+                horizontal: '@',
+                lfwDigits: '@'
             },
             compile: function(tElement, tAttrs) {
                 var v_elementId = tAttrs['name'] || LfwRandom.string(10);
@@ -300,6 +301,8 @@ angular.module('lfw')
 
                 v_input.attr("name", v_elementId).attr("id", v_elementId);
                 v_label.attr("for", v_elementId);
+
+
 
                 if (tAttrs['required']) {
                     v_label.addClass("required_field");    
@@ -326,7 +329,7 @@ angular.module('lfw')
                 }
 
 
-                var v_validationAttributes = ['required', 'ngMinlength', 'ngMaxlength'];
+                var v_validationAttributes = ['required', 'ngMinlength', 'ngMaxlength', 'lfwDigits'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
                     if (tAttrs[p_validation]) {
                         v_input.attr(tAttrs.$attr[p_validation], tAttrs[p_validation]);
