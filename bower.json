@@ -1,6 +1,6 @@
 {
   "name": "lfw-ui",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/logann-it/lfw-ui",
   "authors": [
     "Tiago de Almeida <tiago.almeida@logann.com.br>",
@@ -13,7 +13,11 @@
     "url": "https://github.com/logann-it/lfw-ui"
   },
   "main": [
-    "init.js"
+	"src/scripts/libs/ng-bootbox.js",
+    "src/scripts/init.js",
+    "src/scripts/factories.js",
+    "src/scripts/directives.js",
+	"src/styles/lfw.css"
   ],
   "keywords": [
     "lfw"
