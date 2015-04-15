@@ -245,7 +245,7 @@ angular.module('lfw')
                     return transformed;
                 });
             }
-        }; 
+        };
     })
     .filter('zpad', function() {
         return function(input, n) {
@@ -266,8 +266,8 @@ angular.module('lfw')
                     return transformed;
                 });
             }
-        }; 
-    })    
+        };
+    })
     .directive("lfwInputText", function(LfwRandom) {
         return {
             restrict: 'E',
@@ -296,7 +296,7 @@ angular.module('lfw')
 
                 var v_input = tElement.find('input');
                 var v_label = tElement.find('label');
-                var v_div = tElement.find('div.form-group')
+                var v_div = tElement.find('div.form-group');
                 var v_divGroup = tElement.find('div.lfw-group');
 
                 v_input.attr("name", v_elementId).attr("id", v_elementId);
@@ -305,9 +305,9 @@ angular.module('lfw')
 
 
                 if (tAttrs['required']) {
-                    v_label.addClass("required_field");    
+                    v_label.addClass("required_field");
                 }
-                
+
                 if (tAttrs['horizontal']) {
                     var v_divInput = v_input.parent();
                     v_label.addClass('col-sm-2');
@@ -376,8 +376,8 @@ angular.module('lfw')
 
                 if (tAttrs['required'])
                 {
-                    v_label.addClass("required_field");    
-                }                
+                    v_label.addClass("required_field");
+                }
 
                 var v_validationAttributes = ['required', 'ngMinlength', 'ngMaxlength'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
@@ -419,7 +419,7 @@ angular.module('lfw')
 
                 if (tAttrs['required'])
                 {
-                    v_label.addClass("required_field");    
+                    v_label.addClass("required_field");
                 }
 
                 var v_validationAttributes = ['required'];
@@ -445,7 +445,7 @@ angular.module('lfw')
     .directive("lfwSelect", function(LfwRandom) {
         return {
             restrict: 'E',
-            replace: false,            
+            replace: false,
             scope: {
                 ngModel: '=',
                 label: "@",
@@ -473,15 +473,15 @@ angular.module('lfw')
 
                 if (tAttrs['required'])
                 {
-                    v_label.addClass("required_field");    
-                }                
+                    v_label.addClass("required_field");
+                }
 
                 if (tAttrs['disabled'])
                 {
                     v_select.attr("disabled", "disabled");
                 }
 
-                
+
                 var v_validationAttributes = ['required'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
                     if (tAttrs[p_validation])
@@ -520,11 +520,30 @@ angular.module('lfw')
                 '<div class="panel panel-default">',
                     '<div class="panel-heading"><strong><i class="fa fa-filter"></i> <span translate="global.actions.filter"></span></strong></div>',
                     '<div class="panel-body">',
-                        '<form role="form" name="form" novalidate class="form-horizontal"  ng-transclude>',
+                        '<form role="form" name="form" novalidate ng-transclude>',
                         '</form>',
                     '</div>',
                 '</div>'
-            ].join('')
+            	].join(''),
+            compile: function(p_element, p_attrs)
+            {
+                var v_layoutClass = "form-horizontal";
+                if (p_attrs['layoutClass'])
+                {
+                    if (p_attrs['layoutClass'] === "none")
+                    {
+                        v_layoutClass = null;
+                    }
+                    else
+                    {
+                        v_layoutClass = p_attrs['layoutClass'];
+                    }
+                }
+                if (v_layoutClass !== null)
+                {
+                    p_element.find("form").addClass(v_layoutClass);
+                }
+            }
         };
     })
     .directive("lfwDeleteButton", function() {
@@ -553,7 +572,7 @@ angular.module('lfw')
                 '    <button lfw-offline-disabled type="button" ng-bootbox-confirm="{{\'global.actions.confirm_before_delete\' | translate}}" ng-bootbox-confirm-action="action()" class="btn btn-danger" ng-disabled="{{disable}}">',
                 '        <span class="glyphicon glyphicon-trash"></span> <span class="hidden-xs hidden-sm" translate="global.actions.delete"></span>',
                 '    </button>',
-                '</span>'     
+                '</span>'
             ].join('')
         };
     })
@@ -621,7 +640,7 @@ angular.module('lfw')
                     p_element.find("span[translate]").remove();
                 }
                 return this.link;
-            },      
+            },
             link: function(scope, element, attrs) {
                element.on('click', function() {
                 $window.history.back();
@@ -763,11 +782,11 @@ angular.module('lfw')
                 scope.onCompareAction = scope.onCompare || function(lhs, rhs) {
                     return lhs[scope.attrId] === rhs[scope.attrId];
                 };
-                
+
                 scope.onAddAction = scope.onAdd || function(list, option) {
                     list.push(option);
                 };
-                
+
                 scope.indexOf = function(option) {
                     if (scope.selectedList)  {
                         for(var index = 0; index < scope.selectedList.length; ++index) {
@@ -778,7 +797,7 @@ angular.module('lfw')
                     }
                     return -1;
                 };
-                
+
                 scope.toggleOption = function(option) {
                     var index = scope.indexOf(option);
                     if (index != -1) {
