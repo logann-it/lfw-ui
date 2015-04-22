@@ -825,7 +825,7 @@ angular.module('lfw')
                 return this.link;
             },
             template: [
-                    '<input type="text" class="form-control" placeholder="{{filterPlaceholder}}" ng-model="search[attrDescription]" ng-show="hasFilter" />',
+                    '<input type="text" class="form-control" placeholder="{{filterPlaceholder}}" ng-model="search[attrDescription]" ng-show="hasFilter && completeList.length" />',
                     '<div class="table-responsive">',
                         '<table class="table table-striped table-hover mini-list-grid" ng-show="completeList.length">',
                             '<tr ng-repeat="opt in completeList | filter:search">',
@@ -839,8 +839,7 @@ angular.module('lfw')
                             '</tr>',
                         '</table>',
                         '<div ng-show="completeList.length == 0">',
-                            '<span translate="{{\'global.no_records_found\' | translate}}"></span>',
-                            '&nbsp;&nbsp;<i class="fa fa-frown-o"></i>',
+                            '<span translate="global.no_records_found"></span>',
                         '</div>',
                     '</div>'
                 ].join('')
