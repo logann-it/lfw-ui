@@ -394,12 +394,13 @@ angular.module('lfw')
             restrict: 'E',
             replace: false,
             scope: {
-                ngModel: '=',
-                label: "@",
-                required: '@',
                 attrDescriptionPrefix: '@',
                 enumeration: '=',
-                horizontal: '@'
+                horizontal: '@',
+                label: "@",
+                ngDisabled: '@',
+                ngModel: '=',
+                required: '@'
             },
             compile: function (tElement, tAttrs) {
                 var v_elementId = LfwRandom.string(10);
@@ -434,7 +435,7 @@ angular.module('lfw')
                 '<div class="form-group" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div>',
-                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enumeration">',
+                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt as attrDescriptionPrefix + v_opt | translate for v_opt in enumeration" ng-disabled="ngDisabled">',
                             '<option value=""></option>',
                         '</select>',
                     '</div>',
@@ -447,13 +448,14 @@ angular.module('lfw')
             restrict: 'E',
             replace: false,
             scope: {
-                ngModel: '=',
-                label: "@",
-                required: '@',
-                completeList: '=',
-                attrId: '@',
                 attrDescription: '@',
-                horizontal: '@'
+                attrId: '@',
+                completeList: '=',
+                horizontal: '@',
+                label: "@",
+                ngDisabled: '@',
+                ngModel: '=',
+                required: '@'
             },
             compile: function (tElement, tAttrs) {
                 var v_elementId = LfwRandom.string(10);
@@ -478,7 +480,7 @@ angular.module('lfw')
 
                 if (tAttrs['disabled'])
                 {
-                    v_select.attr("disabled", "disabled");
+                    tAttrs['ngDisabled'] = "true";
                 }
 
 
@@ -503,7 +505,7 @@ angular.module('lfw')
                 '<div class="form-group" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div>',
-                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt[attrId] as v_opt[attrDescription] for v_opt in completeList">',
+                        '<select class="form-control" ng-model="ngModel" ng-options="v_opt[attrId] as v_opt[attrDescription] for v_opt in completeList" ng-disabled="ngDisabled">',
                         '<option value=""></option>',
                         '</select>',
                     '</div>',
