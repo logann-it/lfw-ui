@@ -31,6 +31,32 @@ angular.module('lfw')
             ].join('')
         };
     })
+    .directive("lfwActiveRadioButton", function() {
+        return {
+            restrict: 'E',
+            replace: true,
+            template: [
+                '<div class="form-group lfw-active-radio-button">',
+                    '<div class="row">',
+                        '<div class="col-sm-12">',
+                            '<label>',
+                            '<input type="radio" name="lfw-active-radio-button" ng-model="filter.active" value="true">',
+                            '<span translate="global.actions.active.true"></span>',
+                            '</label>&nbsp;&nbsp;',
+                            '<label>',
+                            '<input type="radio" name="lfw-active-radio-button" ng-model="filter.active" value="false">',
+                            '<span translate="global.actions.active.false"></span>',
+                            '</label>&nbsp;&nbsp;',
+                            '<label>',
+                            '<input type="radio" name="lfw-active-radio-button" ng-model="filter.active" value="">',
+                            '<span translate="global.actions.active.null"></span>',
+                            '</label>',
+                        '</div>',
+                    '</div>',
+                '</div>'
+            ].join('')
+        }
+    })    
     .directive('lfwActiveMenu', function($location) {
         return {
             restrict: 'A',
