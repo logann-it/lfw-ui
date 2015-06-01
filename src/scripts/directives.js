@@ -664,7 +664,7 @@ angular.module('lfw')
                 }
             },
             template: [
-                '<div class="modal fade" id="domainEditDialog" tabindex="-1" role="dialog">',
+                '<div class="modal" id="domainEditDialog" tabindex="-1" role="dialog">',
                     '<div class="modal-dialog">',
                         '<div class="modal-content">',
                             '<form name="form" role="form" novalidate class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength" ng-submit="save()" ng-transclude>',
@@ -782,8 +782,13 @@ angular.module('lfw')
                 }
                 v_table += '</colgroup>';
 
-                v_table += '<tbody>'
-                v_table += '<tr ng-repeat="row in ' + element.attr('data-source') + '">';
+                v_table += '<tbody>';
+                v_table += '<tr ng-repeat="row in ' + element.attr('data-source') + '" ';
+                if (element.attr('main-action'))
+                {
+                    v_table += ' ng-dblclick="' + element.attr('main-action') + '"';
+                }
+                v_table += '>';
                 for (var v_count = 0; v_count < v_cols.length; v_count++)
                 {
                     var v_column = $(v_cols.get(v_count));
@@ -812,7 +817,7 @@ angular.module('lfw')
                     }
 
 
-                    v_table += '>'
+                    v_table += '>';
                     if (v_column.html() != '')
                     {
                         v_table += v_column.html();
@@ -824,7 +829,7 @@ angular.module('lfw')
                     v_table += '</td>';
                 }
                 v_table += '</tr>';
-                v_table += '</tbody>'
+                v_table += '</tbody>';
 
                 v_table += '</table></div>';
                 element.append($(v_table));
