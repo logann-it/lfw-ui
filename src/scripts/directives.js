@@ -11,7 +11,7 @@ angular.module('lfw')
                     watchOnline = lfwOfflineEnabled === undefined ? 'true' : (lfwOfflineEnabled || 'false'),
                     enabled = '$root.online',
                     disabled = '!' + enabled,
-                    ngEnabled = '!' + attrs.ngDisabled + ' && ' + enabled,
+                    ngEnabled = '!(' + attrs.ngDisabled + ') && ' + enabled,
                     ngDisabled = '! (' + ngEnabled + ')';
 
                 return function (scope, elem, attrs) {
