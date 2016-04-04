@@ -217,7 +217,7 @@ angular.module('lfw')
                 '<div class="form-group"  ng-show="ngShow" show-errors>',
                     '<label class="control-label">{{label}}</label>',
                     '<div class="lfw-group">',
-                        '<input type="text" class="form-control" ng-change="ngChange" ng-model="ngModel" name="{{name}}">',
+                        '<input type="text" class="form-control" ng-change="ngChange" ng-model="ngModel" name="{{name}}" maxlength="{{maxlength}}">',
                     '</div>',
                 '</div>'
             ].join(''),
@@ -228,6 +228,7 @@ angular.module('lfw')
                 label: "@",
                 required: '@',
                 name: '@',
+                maxlength: '@',
                 ngMinlength: '@',
                 ngMaxlength: '@',
                 horizontal: '@'
