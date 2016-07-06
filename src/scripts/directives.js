@@ -300,7 +300,8 @@ angular.module('lfw')
                 ngMinlength: '@',
                 ngMaxlength: '@',
                 horizontal: '@',
-                lfwDigits: '@'
+                lfwDigits: '@',
+                ngPattern: '@'
             },
             compile: function(tElement, tAttrs) {
                 var v_elementId = tAttrs['name'] || LfwRandom.string(10);
@@ -340,7 +341,7 @@ angular.module('lfw')
                 }
 
 
-                var v_validationAttributes = ['required', 'ngMinlength', 'ngMaxlength', 'lfwDigits'];
+                var v_validationAttributes = ['required', 'ngMinlength', 'ngMaxlength', 'lfwDigits', 'ngPattern'];
                 angular.forEach(v_validationAttributes, function(p_validation) {
                     if (tAttrs[p_validation]) {
                         v_input.attr(tAttrs.$attr[p_validation], tAttrs[p_validation]);
