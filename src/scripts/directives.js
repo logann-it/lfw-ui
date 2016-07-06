@@ -465,7 +465,7 @@ angular.module('lfw')
                 completeList: '=',
                 horizontal: '@',
                 label: "@",
-                ngDisabled: '@',
+                ngDisabled: '=',
                 ngModel: '=',
                 required: '@'
             },
