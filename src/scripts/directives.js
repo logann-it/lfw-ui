@@ -122,11 +122,16 @@ angular.module('lfw')
             replace: false,
             template: [
             '<p>',
-                '<span translate="global.pagination.showing"></span>',
-                ' <b>{{ (tableParams.page() - 1) * tableParams.count() + (tableParams.data.length > 0 ? 1 : 0)}} - {{ (tableParams.page() - 1) * tableParams.count() +  tableParams.data.length}}</b>',
-                ' <span translate="global.pagination.of"></span>',
-                ' <b>{{tableParams.total()}}</b>',
-                ' <span translate="global.pagination.in_total"></span>',
+                '<div ng-if="tableParams.total() > 0">',
+                '  <span translate="global.pagination.showing"></span>',
+                '  <b>{{ (tableParams.page() - 1) * tableParams.count() + (tableParams.data.length > 0 ? 1 : 0)}} - {{ (tableParams.page() - 1) * tableParams.count() +  tableParams.data.length}}</b>',
+                '  <span translate="global.pagination.of"></span>',
+                '  <b>{{tableParams.total()}}</b>',
+                '  <span translate="global.pagination.in_total"></span>',
+                '</div>',
+                '<div ng-if="tableParams.total() == 0">',
+                '  <span translate="global.actions.recordsNotFound"></span>',
+                '</div>',
             '</p>'
             ].join('')
         };
