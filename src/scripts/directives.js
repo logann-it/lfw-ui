@@ -879,7 +879,9 @@ angular.module('lfw')
                     if (v_column.attr('ng-show')) {
                         v_table += ' ng-show="' + v_column.attr('ng-show')  + '" ' ;
                     }
-                    v_table += ' width="' + v_column.attr('width') + '"/>';
+                    if (v_column.attr('width')) {
+                        v_table += ' width="' + v_column.attr('width') + '"/>';
+                    }
                 }
                 v_table += '</colgroup>';
 
