@@ -789,8 +789,8 @@ angular.module('lfw')
                 attrDescriptionPrefix: '@',
                 attrDescription: '@',
                 onAdd: '=',
-                onCompare: '='
-
+                onCompare: '=',
+                highlightInactive: '@'
             },
             link: function(scope, element, attrs) {
                 scope.onCompareAction = scope.onCompare || function(lhs, rhs) {
@@ -820,13 +820,15 @@ angular.module('lfw')
                         scope.onAddAction(scope.selectedList, option);
                     }
                 };
+
+                scope.highlightInactive = attrs.highlightInactive;
             },
             compile: function(p_element, p_attrs) {
                 p_attrs['attrId'] = p_attrs['attrId'] || 'id';
                 p_attrs['attrDescription'] = p_attrs['attrDescription'] || 'defaultDescription';
                 p_attrs['hasFilter'] = p_attrs['hasFilter'] || false;
                 p_attrs['maxHeight'] = p_attrs['maxHeight'] || 200;
-
+                p_attrs['highlightInactive'] = p_attrs['highlightInactive'] || false;
 
                 var div_responsive = p_element.find('div.table-responsive');
                 if (p_attrs['maxHeight'] == null) {
@@ -838,6 +840,7 @@ angular.module('lfw')
 
                 return this.link;
             },
+
             template: [
                     '<input type="text" class="form-control" placeholder="{{filterPlaceholder}}" ng-model="search[attrDescription]" ng-show="hasFilter && completeList.length" />',
                     '<div class="table-responsive">',
@@ -845,7 +848,7 @@ angular.module('lfw')
                             '<tr ng-repeat="opt in completeList | filter:search">',
                                 '<td class="no-padding">',
                                     '<div class="checkbox">',
-                                        '<label class="checkbox">',
+                                        '<label class="checkbox" ng-style="{ \'text-decoration\': highlightInactive && opt.active == false ? \'line-through\' : \'\' }">',
                                             '<input type="checkbox" value="{{opt[attrId]}}" ng-checked="indexOf(opt) != -1" ng-click="toggleOption(opt)">',
                                             '{{attrDescriptionPrefix + opt[attrDescription] | translate}}',
                                         '</label>',
